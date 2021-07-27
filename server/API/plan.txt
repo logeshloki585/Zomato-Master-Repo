@@ -1,0 +1,19 @@
+## APi PLANING -----
+
+--> Auth
+-->Foods
+-->Restaurants
+-->Menu
+-->Order
+-->Payment -->razorpay
+-->Reviews
+-->User
+-->Phots
+
+
+
+
+
+
+
+
