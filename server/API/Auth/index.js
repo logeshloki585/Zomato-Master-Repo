@@ -18,32 +18,11 @@ Method  POST
 
 Router.post("/signup", async (req,res) =>{
     try{
-        const {email, password,fullname,phoneNumber}= req.body.credentials;
-
-        // check whether the email exist
-
-        const checkUserByEmail = await UserModel.findOne({ email });
-        const checkUserByPhone = await UserModel.findOne({ phoneNumber });
-
-        if(checkUserByEmail || checkUserByPhone) {
-            return res.json({ error : "User already exist"})
-        }
-        // hashing the password
-        const bcryptSalt = await bcrypt.genSalt(8);
-
-        const hashedPassword = await bcrypt.hash(password, bcryptSalt);
-
-
+        await UserModel.findByEmailAndPhone(req.body.credentials);
         //  save to Db
-        await UserModel.create({
-            ...req.body.credentials,
-            password: hashedPassword,
-        });
-
+        const newUser= await UserModel.create(req.body.credentials);
         // genarate a Jwt token
-
-        const token = jwt.sign({ user : { fullname,email } } ,"ZomatoAPP");
-
+        const token = newUser.generateJwtToken();
         // return
         return res.status(200).json({token ,status: "succes"})
     }catch(error) {
@@ -51,5 +30,13 @@ Router.post("/signup", async (req,res) =>{
     }
 
 });
+
+/*
+Route    /signup
+Des      signup with email and password
+params   none
+Access   Public
+Method  POST
+ */
 
 export default Router;
