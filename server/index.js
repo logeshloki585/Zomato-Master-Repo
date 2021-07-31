@@ -34,6 +34,7 @@ googleConfig(passport);
 // application routes
 zomato.use("/auth",Auth);
 zomato.use("/restaurant",Restaurant);
+zomato.use("/food",Food);
 
 
 zomato.get("/",(req,res) => 
