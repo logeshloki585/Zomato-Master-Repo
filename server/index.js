@@ -10,11 +10,13 @@ import passport from "passport";
 import googleConfig from "./config/google.config";
 
 // microservice routes
-import Auth from './API/Auth'
-
+import Auth from './API/Auth';
+import Restaurant from "./API/Restaurant";
+import Food from "./API/Food";
 
 // database connection 
 import connectDB from './database/connection'
+import { RestaurantModel } from "./database/restaurant";
 
 const zomato = express();
 
@@ -31,6 +33,7 @@ googleConfig(passport);
 
 // application routes
 zomato.use("/auth",Auth);
+zomato.use("/restaurant",Restaurant);
 
 
 zomato.get("/",(req,res) => 
