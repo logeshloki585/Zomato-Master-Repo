@@ -1,50 +1,57 @@
-// dotenv
-require('dotenv').config();
+// Importing Env Variables
+require("dotenv").config();
 
+// Libraries
 import express from "express";
 import cors from "cors";
 import helmet from "helmet";
 import passport from "passport";
 
-// config
-import googleConfig from "./config/google.config";
+// configs
+import googleAuthConfig from "./config/google.config";
+import routeConfig from "./config/route.config";
 
 // microservice routes
-import Auth from './API/Auth';
+import Auth from "./API/Auth";
 import Restaurant from "./API/Restaurant";
 import Food from "./API/Food";
+import Image from "./API/Image";
+import Order from "./API/orders";
+import Reviews from "./API/reviews";
+import User from "./API/user";
 
-// database connection 
-import connectDB from './database/connection'
-import { RestaurantModel } from "./database/restaurant";
+// Database connection
+import ConnectDB from "./database/connection";
 
 const zomato = express();
 
 // application middlewares
 zomato.use(express.json());
-zomato.use(express.urlencoded({extended : false }));
+zomato.use(express.urlencoded({ extended: false }));
 zomato.use(helmet());
 zomato.use(cors());
 zomato.use(passport.initialize());
 zomato.use(passport.session());
 
-// passport configure
-googleConfig(passport);
+// passport cofiguration
+googleAuthConfig(passport);
+routeConfig(passport);
 
-// application routes
-zomato.use("/auth",Auth);
-zomato.use("/restaurant",Restaurant);
-zomato.use("/food",Food);
+// Application Routes
+zomato.use("/auth", Auth);
+zomato.use("/restaurant", Restaurant);
+zomato.use("/food", Food);
+zomato.use("/image", Image);
+zomato.use("/order", Order);
+zomato.use("/reviews", Reviews);
+zomato.use("/user", User);
 
+zomato.get("/", (req, res) => res.json({ message: "Setup success" }));
 
-zomato.get("/",(req,res) => 
-    res.json({ message :"setup succesful"})
+zomato.listen(4000, () =>
+  ConnectDB()
+    .then(() => console.log("Server is running 🚀"))
+    .catch(() =>
+      console.log("Server is running, but database connection failed... ")
+    )
 );
-
-
-
-zomato.listen( 4000 ,() => 
-connectDB()
-.then(() => console.log("server is running"))
-.catch(() => console.log("server is running database connection is false")) 
-); 

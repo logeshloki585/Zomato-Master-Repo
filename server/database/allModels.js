@@ -6,13 +6,12 @@ import { RestaurantModel } from "./restaurant";
 import { ReviewModel } from "./reviews";
 import { UserModel } from "./user";
 
-
 export {
-    FoodModel,
-    ImageModel,
-    MenuModel,
-    OrderModel,
-    RestaurantModel,
-    ReviewModel,
-    UserModel,
+  FoodModel,
+  ImageModel,
+  MenuModel,
+  OrderModel,
+  RestaurantModel,
+  ReviewModel,
+  UserModel,
 };
