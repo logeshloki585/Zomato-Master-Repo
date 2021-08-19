@@ -19,7 +19,7 @@ const MobileNav =() =>{
 
 const LargeNav = () => {
  return  <>
- <div className="container px-20 mx-auto">
+ <div className="hidden lg:inline container px-20 mx-auto">
     <div className="hidden gap-4  w-full items-center justify-between  lg:flex  " >
         <div className="w-28 ">
             <img className="w-full height-full" src="https://b.zmtcdn.com/web_assets/b40b97e677bc7b2ca77c58c61db266fe1603954218.png" alt="logo" />
