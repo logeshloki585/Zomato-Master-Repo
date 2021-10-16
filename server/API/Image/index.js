@@ -7,13 +7,30 @@ import multer from "multer";
 import { ImageModel } from "../../database/allModels";
 
 // Utilities
-import { s3Upload } from "../../Utils/AWS/s3";
+import { s3Upload } from "../../Utils/s3";
 
 const Router = express.Router();
 
 // Multer Config
 const storage = multer.memoryStorage();
 const upload = multer({ storage });
+
+/*
+Route     /
+Des       Get Image details
+Params    _id
+Access    Public
+Method    GET  
+*/
+Router.get("/:_id", async (req, res) => {
+  try {
+    const image = await ImageModel.findById(req.params._id);
+
+    return res.json({ image });
+  } catch (error) {
+    return res.status(500).json({ error: error.message });
+  }
+});
 
 /*
 Route     /
